@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import {useHistory} from 'react-router-dom'
 import {
   TextField,
   makeStyles,
@@ -11,6 +12,8 @@ import {
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import {addProduct} from '../actions/product'
+import {getCookie} from '../actions/auth'
+
 
 import clsx from "clsx";
 
@@ -40,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const CreateProduct = () => {
+  const token = getCookie('token');
+
   const classes = useStyles();
 
   const [values, setValues] = useState({
@@ -57,15 +62,16 @@ const CreateProduct = () => {
       console.log(values)
         setValues({ ...values, [name]: event.target.value, error: false, success: false});
     };
-
+    const history = useHistory()
   const handleSubmit = async event => {
+    
         event.preventDefault();
         setValues({ ...values});
-        let res = await addProduct({ name, price, quantity, description });
+        let res = await addProduct(token ,{ name, price, quantity, description });
         if (res.error) {
             setValues({ ...values, error: res.error });
-            // getStatus ? getStatus(false) : null;
         } else {
+          history.push('/products')
             setValues({
                 ...values,
                 sent: true,
@@ -75,7 +81,6 @@ const CreateProduct = () => {
                 description: '',
                 success: res.success
             });
-            // getStatus ? getStatus(true) : null;
         }
     };
 

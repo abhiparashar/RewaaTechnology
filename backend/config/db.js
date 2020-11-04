@@ -1,25 +1,20 @@
-const util = require('util')
 const mysql = require('mysql')
-const { error } = require('console')
-const { connect } = require('http2')
-
-const pool = mysql.createConnection({
+const db = mysql.createConnection({
     connectionLimit:10,
     host:'localhost',
-    user:'admin',
-    password:'admin',
-    database:'rewaa'
+    user:'root',
+    password:'password',
+    database:'rewaa',
+    insecureAuth : true
 })
 
-// pool.getConnection((err,connection)=>{
-//     if(err){
-//         console.log('connection not established')
-//     }
-//     else{
-//         connection.release()
-//     }
-// })
+db.getConnection = function(err,connection){
+    if(err){
+        console.log('connection not established')
+    }
+    else{
+        connection.release()
+    }
+}
 
-pool.query = util.promisify(pool.query)
-
-// module.exports = pool
+module.exports = db

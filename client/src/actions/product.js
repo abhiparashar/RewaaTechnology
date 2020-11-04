@@ -3,17 +3,32 @@ import axios from 'axios'
 const API = 'http://localhost:6500';
 
 
-export const addProduct = async(data)=>{
+export const addProduct = async(token,data)=>{
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
     const res = await axios.post(`${API}/api/v1/products/createproduct`, data)
     return res;
 }
 
-export const updateProduct = async (id,data) => {
+export const updateProduct = async (token,id,data) => {
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
     const res = await axios.put(`${API}/api/v1/products/${id}`,data)
     return res;
 }
 
-export const deleteproduct = async(id) => {
+export const deleteproduct = async(token,id) => {
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
     const res = await axios.delete(`${API}/api/v1/products/${id}`)
     return res;
 }

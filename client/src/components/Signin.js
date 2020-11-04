@@ -57,14 +57,15 @@ export default function SignIn() {
         console.log(res)
         if (res.error) console.log(res);
         else {
-            // authenticate(res.data, () => {
-            //     if (isAuth() || isAuth().role === 1) {
-            //         history.push('/');
-            //     }
-            // });
+            authenticate(res.data, () => {
+                if (isAuth() || isAuth().role === 1) {
+                    history.push('/products');
+                }
+            });
             
         }
     };
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />

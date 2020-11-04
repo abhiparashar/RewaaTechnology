@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import {isAuth} from '../actions/auth'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,11 +26,42 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+                  <Typography variant="h6" className={classes.title}>
+          <Link to="/products">
+
             Rewaa Technology
+            </Link>
           </Typography>
-          <Button color="inherit">signup</Button>
-          <Button color="inherit">login</Button>
+          {!isAuth() ? (
+                                <>
+                                    <Button color='inherit' key={'signinbutton'}>
+                                        <Link to='/signin' >
+                                            <Typography>SignIn</Typography>
+                                        </Link>
+                                    </Button>
+                                    <Button color='inherit' key={'signupbutton'}>
+                                        <Link to='/signup'>
+                                            <Typography>SignUp</Typography>
+                                        </Link>
+                                    </Button>
+                                    
+                                </>
+                            ) : (
+                                <>
+                                  <Button color='inherit' key={'logoutbutton'}>
+                                        <Link to='/createproduct'>
+                                            <Typography>Create Products</Typography>
+                                        </Link>
+                                    </Button> 
+                                  <Button color='inherit' key='logoutbutton'>
+                                        <Link to='/signin'>
+                                            <Typography>Logout</Typography>
+                                        </Link>
+                                    </Button> 
+                                   
+                                </>
+                            )}
+          
         </Toolbar>
       </AppBar>
       <div>

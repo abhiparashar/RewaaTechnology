@@ -11,6 +11,7 @@ import UpdateIcon from "@material-ui/icons/Update";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from 'react-router-dom';
 import {getProducts,deleteproduct} from '../actions/product'
+import {getCookie} from '../actions/auth'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables() {
+  const token = getCookie('token')
   const classes = useStyles();
   const[products,setProducts] = useState([])
   const[success,setSuccess] = useState(false)
@@ -57,7 +59,7 @@ export default function CustomizedTables() {
         });
     };
     const handleDeleteClick = id => {
-        deleteproduct(id).then(data => {
+        deleteproduct(token,id).then(data => {
             if (data.error) setSuccess(false);
             else {
                 setSuccess(true);

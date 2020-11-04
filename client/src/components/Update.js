@@ -9,9 +9,11 @@ import {
   FormGroup,
   Button,
 } from "@material-ui/core";
+import {useHistory} from 'react-router-dom'
 import SaveIcon from "@material-ui/icons/Save";
 import clsx from "clsx";
 import {getProduct,updateProduct} from '../actions/product'
+import{getCookie} from '../actions/auth'
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -39,8 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const Update = () => {
+  const history = useHistory()
     const classes = useStyles();
+    const token = getCookie('token');
     const [values, setValues] = useState({
         name: '',
         price: '',
@@ -89,11 +94,12 @@ const Update = () => {
         event.preventDefault();
         
         setValues({ ...values});
-        let res = await updateProduct(window.location.pathname.split('/')[2],{ name, price, quantity, description });
+        let res = await updateProduct(token,window.location.pathname.split('/')[2],{ name, price, quantity, description });
         if (res.error) {
             setValues({ ...values, error: res.error });
             // getStatus ? getStatus(false) : null;
         } else {
+          history.push('/products')
             setValues({
                 ...values,
                 sent: true,
