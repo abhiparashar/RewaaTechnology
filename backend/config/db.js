@@ -1,26 +1,33 @@
 const mysql = require('mysql')
-const migration = require('mysql-migrations');
+const sequelize  = require('sequelize')
 
-const db = mysql.createConnection({
-    connectionLimit:10,
-    host:'localhost',
-    user:'root',
-    password:'password',
-    database:'rewaa',
-    insecureAuth : true
-})
+// const db = mysql.createConnection({
+//     connectionLimit:10,
+//     host:'localhost',
+//     user:'root',
+//     password:'password',
+//     database:'rewaa',
+//     insecureAuth : true
+// })
 
-// migration.init(db, __dirname + '/migrations', function() {
-//   console.log("finished running migrations");
-// });
+// db.getConnection = function(err,connection){
+//     if(err){
+//         console.log('connection not established')
+//     }
+//     else{
+//         connection.release()
+//     }
+// }
 
-db.getConnection = function(err,connection){
-    if(err){
-        console.log('connection not established')
+
+const db = new sequelize(
+    'rewaa',
+    'root',
+    'password',
+    {
+        dialect:'mysql',
+        host:'localhost'
     }
-    else{
-        connection.release()
-    }
-}
+)
 
 module.exports = db

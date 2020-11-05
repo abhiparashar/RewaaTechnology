@@ -3,9 +3,14 @@ const dotenv = require('dotenv')
 dotenv.config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const User = require('./models/User');
+const Product = require('./models/Product')
+let db = require('./config/db') 
 const authRoute = require('./routes/auth')
 const productRoute = require('./routes/product')
 
+db.sync() 
+db.sync({force:true}) 
 
 const app = express()
 
