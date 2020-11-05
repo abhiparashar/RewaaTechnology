@@ -10,9 +10,9 @@ const db = mysql.createConnection({
     insecureAuth : true
 })
 
-migration.init(db, __dirname + '/migrations', function() {
-  console.log("finished running migrations");
-});
+// migration.init(db, __dirname + '/migrations', function() {
+//   console.log("finished running migrations");
+// });
 
 db.getConnection = function(err,connection){
     if(err){
