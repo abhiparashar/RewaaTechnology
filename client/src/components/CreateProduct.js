@@ -56,7 +56,7 @@ const CreateProduct = () => {
         success: false
     });
 
-  const { name, price, quantity, description, error,success} = values;
+  const { name, price, quantity, description} = values;
   
   const handleChange = name => event => {
       console.log(values)

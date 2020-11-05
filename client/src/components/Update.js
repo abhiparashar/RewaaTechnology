@@ -58,15 +58,6 @@ const Update = () => {
     React.useEffect(() => {
         readABlog()
     }, [])
-    // const readABlog =async () => {
-    //     let res = await getProduct(window.location.pathname.split('/')[2])
-    //     if(res.error){
-    //         console.log(res.error)
-    //     }
-    //     else{
-    //         return res.data
-    //     }
-    // }
 
     const readABlog = () => {
        
@@ -84,7 +75,7 @@ const Update = () => {
         
     };
 
-    const { name, price, quantity, description, error,success} = values;
+    const { name, price, quantity, description} = values;
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value, error: false, success: false});
