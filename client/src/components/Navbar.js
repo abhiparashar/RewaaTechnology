@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import {isAuth} from '../actions/auth'
+import {isAuth,signout} from '../actions/auth'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +53,7 @@ export default function ButtonAppBar() {
                                             <Typography>Create Products</Typography>
                                         </Link>
                                     </Button> 
-                                  <Button color='inherit' key='logoutbutton'>
+                                  <Button color='inherit' key='logoutbutton' onClick={() =>signout()}>
                                         <Link to='/signin'>
                                             <Typography>Logout</Typography>
                                         </Link>

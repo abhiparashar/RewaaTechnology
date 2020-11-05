@@ -35,22 +35,25 @@ exports.Signin =  (req,res)=>{
     const email = req.body.email
     const password = req.body.password
     const token = jwt.sign({email, password }, process.env.ACCOUNT_ACTIVATION_JWT, { expiresIn: '12h' });
-    let  matchPassword  =false
         db.query("SELECT * FROM users WHERE email=?",[email],(err,user)=>{
             if(err){
                 res.status(500).send(err)
             }
             if(user){
-            matchPassword= bcypt.compare(password,user[0].password)
-                    .then((data) =>      
-                    {
+                console.log(user[0].password)
+            bcypt.compare(password,user[0].password)
+                    .then((data) =>{
                     if(data){
-                            res.status(200).send({token,user:user})
+                        console.log(token,'slkmskmlkslksmasfsdfgsdgfsdgdsfgdfgdfgdfgdfgdf');
+
+                        res.status(200).send({token,user:user})
+                        
                     }else{
-                            return res.send("Invalid credentials")
+                        return res.send("Invalid credentials")
                     }})
                     .catch(() => console.log('something went wrong!'))
-                    console.log(matchPassword)
+            }else{
+                res.send('User not exists!')
             }
     })
      

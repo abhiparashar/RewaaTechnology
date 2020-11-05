@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { signup } from '../actions/auth'
+import {useHistory} from 'react-router-dom'
 
 function Copyright() {
   return (
@@ -60,12 +61,15 @@ export default function SignUp() {
             setname(value);
         }
     };
-
+const history=useHistory()
     const handleSubmit = async e => {
         e.preventDefault();
 
         const data = { username, email, password };
-        await signup(data);
+      let res=  await signup(data);
+      // if(!res.error){
+      //   history.push('/signin')
+      // }
     };
 
   return (

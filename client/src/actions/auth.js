@@ -13,10 +13,9 @@ export const signup = async data => {
     return res;
 };
 
-export const signout = async next => {
+export const signout = async () => {
     removeCookie('token');
     removeLocalStorage('user');
-    next();
     let res = await axios.post(`${API}/api/auth/signout`);
     return res;
 };
@@ -46,6 +45,7 @@ export const setCookie = async (key, val) => {
 export const isAuth = () => {
     if (process.browser) {
         const cookieChecked = getCookie('token');
+        console.log(cookieChecked);
         if (cookieChecked) {
             if (localStorage.getItem('user')) {
                 return JSON.parse(localStorage.getItem('user'));

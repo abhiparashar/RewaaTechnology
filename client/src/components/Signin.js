@@ -52,13 +52,11 @@ export default function SignIn() {
     const handleSubmit = async e => {
         e.preventDefault();
         const data = { email, password };
-
         const res = await signin(data);
-        console.log(res)
         if (res.error) console.log(res);
         else {
             authenticate(res.data, () => {
-                if (isAuth() || isAuth().role === 1) {
+                if (isAuth() ) {
                     history.push('/products');
                 }
             });
